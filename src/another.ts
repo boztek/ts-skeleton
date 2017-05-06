@@ -1,8 +1,10 @@
 class AnotherGreeter {
-  constructor(private name = "You") {}
+  constructor(private name = "You") {
+    console.log(this);
+  }
 
   hi() {
-    return `Hey ${this.name}.`;
+    return `Well well well, hey there ${this.name}.`;
   }
 }
 

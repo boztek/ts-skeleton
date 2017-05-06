@@ -1,8 +1,8 @@
 function greeter(person: string) {
-  return "Hello, " + person;
+  return `<p class="greeting">Hello there ${person}.</p>`;
 }
 
-let user = "Jane User",
+let user = "Mr. User",
     age = 42;
 
 export default () => document.body.innerHTML = greeter(user);
