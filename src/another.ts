@@ -4,7 +4,7 @@ class AnotherGreeter {
   }
 
   hi() {
-    return `Well well well, hey there ${this.name}.`;
+    return `Well hey there ${this.name}.`;
   }
 }
 

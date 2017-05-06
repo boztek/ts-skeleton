@@ -4,14 +4,14 @@ let inputTree = 'src',
     sourcemaps = require('rollup-plugin-sourcemaps'),
     Funnel = require('broccoli-funnel'),
     BroccoliMergeTrees = require('broccoli-merge-trees'),
+    uglify = require('broccoli-uglify-sourcemap'),
     BrowserSync = require('broccoli-browser-sync');
 
-let document = new Funnel('src', {
-  include: ['index.html'],
-});
-
-var cssFiles = new Funnel('src/css', {
-  destDir: 'css'
+let staticFiles = new Funnel(inputTree, {
+  files: [
+    'index.html',
+    'css/styles.css',
+  ],
 });
 
 let jsTree = typescript(inputTree, {
@@ -24,9 +24,6 @@ let jsTree = typescript(inputTree, {
         "pretty": true,
         "noEmitOnError": true
     },
-    "files": [
-        "index.ts"
-    ],
   },
   annotation: "ES2015 modules"
 });
@@ -44,12 +41,24 @@ let jsBundles = new Rollup(jsTree, {
   }
 });
 
+var uglified = uglify(jsBundles, {
+  mangle: true,
+  compress: true,
+  sourceMapIncludeSources: true,
+  sourceMapConfig: {
+    enabled: true,
+    extensions: [ 'js' ]
+  }
+});
+
 // browsersync options
 let bsOptions = {
   browserSync: {
     open: false,
+    reloadOnRestart: false,
+    notify: false,
   }
 };
-var browserSync = new BrowserSync([document, jsBundles, cssFiles], bsOptions);
+var browserSync = new BrowserSync([staticFiles, jsBundles, jsTree, uglified], bsOptions);
 
-module.exports = new BroccoliMergeTrees([document, jsBundles, cssFiles, browserSync]);
+module.exports = new BroccoliMergeTrees([staticFiles, uglified, browserSync]);
