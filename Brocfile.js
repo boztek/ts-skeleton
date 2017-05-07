@@ -5,7 +5,8 @@ let inputTree = 'src',
     Funnel = require('broccoli-funnel'),
     BroccoliMergeTrees = require('broccoli-merge-trees'),
     uglify = require('broccoli-uglify-sourcemap'),
-    BrowserSync = require('broccoli-browser-sync');
+    BrowserSync = require('broccoli-browser-sync'),
+    env = require('./lib/build-env').getBuildEnvironment();
 
 let staticFiles = new Funnel(inputTree, {
   files: [
@@ -57,8 +58,14 @@ let bsOptions = {
     open: false,
     reloadOnRestart: false,
     notify: false,
+    injectChanges: true,
   }
 };
-var browserSync = new BrowserSync([staticFiles, jsBundles, jsTree, uglified], bsOptions);
 
-module.exports = new BroccoliMergeTrees([staticFiles, uglified, browserSync]);
+if (env === 'production') {
+  module.exports = new BroccoliMergeTrees([staticFiles, uglified]);
+}
+else {
+  var browserSync = new BrowserSync([staticFiles, jsBundles, jsTree, uglified], bsOptions);
+  module.exports = new BroccoliMergeTrees([staticFiles, jsBundles, browserSync]);
+}
