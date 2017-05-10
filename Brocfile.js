@@ -19,11 +19,10 @@ let jsTree = typescript(inputTree, {
   tsconfig: {
     "compilerOptions": {
         "target": "ES3",
-        "strict": true,
         "module": "es2015",
+        "strict": true,
         "sourceMap": true,
         "pretty": true,
-        "noEmitOnError": true
     },
   },
   annotation: "ES2015 modules"
@@ -66,6 +65,6 @@ if (env === 'production') {
   module.exports = new BroccoliMergeTrees([staticFiles, uglified]);
 }
 else {
-  var browserSync = new BrowserSync([staticFiles, jsBundles, jsTree, uglified], bsOptions);
+  var browserSync = new BrowserSync([staticFiles, jsTree], bsOptions);
   module.exports = new BroccoliMergeTrees([staticFiles, jsBundles, browserSync]);
 }
