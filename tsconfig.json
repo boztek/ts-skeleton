@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "strict": true,
+        "target": "ES3",
         "module": "es2015",
+        "strict": true,
         "sourceMap": true,
-        "pretty": true
+        "pretty": true,
     },
     "include": [
         "src/**/*.ts"
