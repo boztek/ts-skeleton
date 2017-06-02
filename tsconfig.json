@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
-        "target": "ES3",
+        "target": "es5",
         "module": "es2015",
         "strict": true,
         "sourceMap": true,
         "pretty": true,
-    },
-    "include": [
-        "src/**/*.ts"
-    ]
+        "lib": [
+            "dom",
+            "es5",
+            "scripthost"
+        ]
+    }
 }

@@ -16,16 +16,8 @@ let staticFiles = new Funnel(inputTree, {
 });
 
 let jsTree = typescript(inputTree, {
-  tsconfig: {
-    "compilerOptions": {
-        "target": "ES3",
-        "module": "es2015",
-        "strict": true,
-        "sourceMap": true,
-        "pretty": true,
-    },
-  },
-  annotation: "ES2015 modules"
+  annotation: "ES2015 modules",
+  tsconfig: "tsconfig.json",
 });
 
 let jsBundles = new Rollup(jsTree, {

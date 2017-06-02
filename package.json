@@ -10,13 +10,14 @@
     "broccoli-funnel": "^1.2.0",
     "broccoli-merge-trees": "^2.0.0",
     "broccoli-rollup": "^1.3.0",
-    "broccoli-typescript-compiler": "^1.0.1",
+    "broccoli-typescript-compiler": "tildeio/broccoli-typescript-compiler#master",
     "broccoli-uglify-sourcemap": "^1.5.2",
     "rollup": "^0.41.6",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "typescript": "^2.3.2"
   },
   "scripts": {
+    "postinstall": "cd ./node_modules/broccoli-typescript-compiler && yarn",
     "start": "ENVIRONMENT=development ./node_modules/.bin/broccoli serve",
     "build": "rm -rf dist && ENVIRONMENT=production ./node_modules/.bin/broccoli build dist"
   }
